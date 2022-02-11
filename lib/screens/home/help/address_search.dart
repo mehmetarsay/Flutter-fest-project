@@ -44,7 +44,7 @@ class AddressSearch extends SearchDelegate<Suggestion> {
       future: query == ""
           ? null
           : apiClient.fetchSuggestions(
-          query, Localizations.localeOf(context).languageCode),
+          query, 'tr'),
       builder: (context, dynamic snapshot) => query == ''
           ? Container(
         padding: EdgeInsets.all(16.0),
