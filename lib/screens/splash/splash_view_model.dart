@@ -10,7 +10,7 @@ class SplashViewModel extends CustomBaseViewModel {
     this.context = context;
     await Future.delayed(Duration(seconds: 1));
 
-     context.navigateToReplacement( FindFriends());
+     context.navigateToReplacement( MyHomePage());
     // context.navigateToReplacement(GameNewView(gameRoomId: ''));
     // context.navigateToReplacement(LeaderBoardView());
   }
