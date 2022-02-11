@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845303568513",
+    "project_id": "flutterfest-zam",
+    "storage_bucket": "flutterfest-zam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845303568513:android:b1a904548f28a948be5580",
+        "android_client_info": {
+          "package_name": "com.mobuni.zam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845303568513-uhsfkpgru89mikpr0j3kvrstrms9g9kf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuL4wISum-tvnF5MElq2w83ODiq-KUC1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845303568513-uhsfkpgru89mikpr0j3kvrstrms9g9kf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
