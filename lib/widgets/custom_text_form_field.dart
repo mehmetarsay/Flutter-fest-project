@@ -88,20 +88,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               });
             },
             decoration: InputDecoration(
+
                 prefixIcon: widget.prefixIcon,
                 suffixIcon: widget.isSuffixIcon,
                 errorStyle: const TextStyle(fontSize: 16),
                 hintText: widget.insideHint! ? widget.hintText ?? '' : '',
+
                 hintStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.secondaryVariant),
-                border: context.themeData.inputDecorationTheme.border,
-                enabledBorder:
-                    context.themeData.inputDecorationTheme.enabledBorder,
-                errorBorder: context.themeData.inputDecorationTheme.errorBorder,
-                focusedBorder:
-                    context.themeData.inputDecorationTheme.focusedBorder,
+                    color: Colors.black),
                 filled: true,
-                fillColor: context.themeData.inputDecorationTheme.fillColor),
+                fillColor: Colors.white),
             keyboardType: widget.textInputType ?? TextInputType.text,
             controller: widget.controller,
             // onEditingComplete: () => FocusScope.of(context).nextFocus(),
