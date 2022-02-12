@@ -31,7 +31,7 @@ class _CustomTextState extends State<CustomText> {
       widget.data ?? '',
       textAlign: widget.textAlign ?? TextAlign.start,
       style: TextStyle(
-          fontSize: widget.fontSize ?? 12,
+          fontSize: widget.fontSize ?? 14,
           fontWeight: widget.fontWeight ?? FontWeight.normal,
           color: widget.color ?? Colors.black,
           decoration: widget.lineThrough
