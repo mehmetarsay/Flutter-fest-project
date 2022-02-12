@@ -15,8 +15,11 @@ class AppThemeLight extends AppTheme with ILightTheme {
 
   @override
   ThemeData get theme => ThemeData(
-      primaryColor: colorSchemeLight!.blue,
-      colorScheme: ColorScheme.light().copyWith(
-          primary: colorSchemeLight!.darkBlue,
-          primaryVariant: colorSchemeLight!.white));
+        primaryColor: colorSchemeLight!.blue,
+        colorScheme: const ColorScheme.light().copyWith(
+            primary: colorSchemeLight!.blue,
+            secondary: colorSchemeLight!.red,
+            tertiary: colorSchemeLight!.white,
+            onTertiary: colorSchemeLight!.grey),
+      );
 }

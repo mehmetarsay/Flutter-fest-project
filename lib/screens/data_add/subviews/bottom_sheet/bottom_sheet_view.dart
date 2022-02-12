@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:stacked/stacked.dart';
+import 'package:zam/core/extension/context_extension.dart';
 import 'package:zam/model/place.dart';
 import 'package:zam/screens/data_add/subviews/bottom_sheet/bottom_sheet_view_model.dart';
 
@@ -32,7 +33,11 @@ class DataAddBottomSheet extends StatelessWidget {
                         flex: 1,
                         child: Text(
                           place.result!.name!,
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 15),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 15),
                         ),
                       ),
                       Expanded(
@@ -45,34 +50,72 @@ class DataAddBottomSheet extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                spinBoxWidget('Bina Yaşı ${viewModel.placeUserData.buildingAge??''}', onChange: (value) {
+                                spinBoxWidget(
+                                    'Bina Yaşı ${viewModel.placeUserData.buildingAge ?? ''}',
+                                    onChange: (value) {
                                   viewModel.placeUserData.buildingAge = value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Binanın yapım yılından şimdiye kadar geçen süre. Bilmiyorsanın 0 olarak bırakabilirsiniz.'),
-                                spinBoxWidget('Su Kalitesi ${viewModel.placeUserData.waterQuality??''}', max: 5, icon: Icons.water, onChange: (value) {
+                                },
+                                    desc:
+                                        'Binanın yapım yılından şimdiye kadar geçen süre. Bilmiyorsanın 0 olarak bırakabilirsiniz.'),
+                                spinBoxWidget(
+                                    'Su Kalitesi ${viewModel.placeUserData.waterQuality ?? ''}',
+                                    max: 5,
+                                    icon: Icons.water, onChange: (value) {
                                   viewModel.placeUserData.waterQuality = value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Binanın içine gelen suyun kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
-                                spinBoxWidget('Ödediğiniz Kira ${viewModel.placeUserData.rentMoney??''} TL', max: 100000, icon: Icons.money, onChange: (value) {
+                                },
+                                    desc:
+                                        'Binanın içine gelen suyun kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
+                                spinBoxWidget(
+                                    'Ödediğiniz Kira ${viewModel.placeUserData.rentMoney ?? ''} TL',
+                                    max: 100000,
+                                    icon: Icons.money, onChange: (value) {
                                   viewModel.placeUserData.rentMoney = value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Kirada oturuyorsanınz kiranızı giriniz. Girmek istemezseniz 0 olarak bırakınız '),
-                                spinBoxWidget('Tesisat Kalitesi ${viewModel.placeUserData.plumbingQuality??''}', max: 5, icon: Icons.wrap_text, onChange: (value) {
-                                  viewModel.placeUserData.plumbingQuality = value;
+                                },
+                                    desc:
+                                        'Kirada oturuyorsanınz kiranızı giriniz. Girmek istemezseniz 0 olarak bırakınız '),
+                                spinBoxWidget(
+                                    'Tesisat Kalitesi ${viewModel.placeUserData.plumbingQuality ?? ''}',
+                                    max: 5,
+                                    icon: Icons.wrap_text, onChange: (value) {
+                                  viewModel.placeUserData.plumbingQuality =
+                                      value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Binanın içindeki tesisat kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
-                                spinBoxWidget('İnternet Kalitesi ${viewModel.placeUserData.internetQuality??''}', max: 5, icon: Icons.network_check, onChange: (value) {
-                                  viewModel.placeUserData.internetQuality = value;
+                                },
+                                    desc:
+                                        'Binanın içindeki tesisat kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
+                                spinBoxWidget(
+                                    'İnternet Kalitesi ${viewModel.placeUserData.internetQuality ?? ''}',
+                                    max: 5,
+                                    icon: Icons.network_check,
+                                    onChange: (value) {
+                                  viewModel.placeUserData.internetQuality =
+                                      value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Binada ki internet kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
-                                spinBoxWidget('Elektirik Kalitesi ${viewModel.placeUserData.electricityQuality??''}', max: 5, icon: Icons.whatshot, onChange: (value) {
-                                  viewModel.placeUserData.electricityQuality = value;
+                                },
+                                    desc:
+                                        'Binada ki internet kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
+                                spinBoxWidget(
+                                    'Elektirik Kalitesi ${viewModel.placeUserData.electricityQuality ?? ''}',
+                                    max: 5,
+                                    icon: Icons.whatshot, onChange: (value) {
+                                  viewModel.placeUserData.electricityQuality =
+                                      value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Binanın içinde ki elektiriğin kesilip kesilmediği durumuna göre kendi açınızdan 1-5 arasında puanlayınız '),
-                                spinBoxWidget('Dayanıklılık ${viewModel.placeUserData.durability??''}', max: 5, icon: Icons.spellcheck, onChange: (value) {
+                                },
+                                    desc:
+                                        'Binanın içinde ki elektiriğin kesilip kesilmediği durumuna göre kendi açınızdan 1-5 arasında puanlayınız '),
+                                spinBoxWidget(
+                                    'Dayanıklılık ${viewModel.placeUserData.durability ?? ''}',
+                                    max: 5,
+                                    icon: Icons.spellcheck, onChange: (value) {
                                   viewModel.placeUserData.durability = value;
                                   viewModel.notifyListeners();
-                                }, desc: 'Binanın dayanıklılığını kendi açınızdan 1-5 arasında puanlayınız '),
+                                },
+                                    desc:
+                                        'Binanın dayanıklılığını kendi açınızdan 1-5 arasında puanlayınız '),
                                 SizedBox(
                                   height: 40,
                                 ),
@@ -91,8 +134,8 @@ class DataAddBottomSheet extends StatelessWidget {
                         viewModel.sendButton(place);
                       },
                       icon: Icon(Icons.check),
-                      backgroundColor: Color(0xff2680ea),
-                      focusColor: Colors.grey,
+                      backgroundColor: context.themeData.colorScheme.primary,
+                      focusColor: context.themeData.colorScheme.onTertiary,
                       label: Text('Gönder'),
                       elevation: 10,
                     ),
@@ -104,7 +147,11 @@ class DataAddBottomSheet extends StatelessWidget {
         });
   }
 
-  spinBoxWidget(String text, {required Function(int value) onChange, required String desc, double? max, IconData? icon}) {
+  spinBoxWidget(String text,
+      {required Function(int value) onChange,
+      required String desc,
+      double? max,
+      IconData? icon}) {
     return Column(
       children: [
         ExpandablePanel(

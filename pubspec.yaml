@@ -54,6 +54,7 @@ dependencies:
   expandable_bottom_sheet: ^1.1.1+1
   flutter_spinbox: ^0.8.0
   expandable: ^5.0.1
+  provider: ^6.0.2
 
 
 dev_dependencies:
