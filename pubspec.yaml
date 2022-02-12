@@ -51,6 +51,9 @@ dependencies:
   flutter_google_places: ^0.3.0
   uuid: ^3.0.5
   firebase_auth: ^3.3.7
+  expandable_bottom_sheet: ^1.1.1+1
+  flutter_spinbox: ^0.8.0
+  expandable: ^5.0.1
 
 
 dev_dependencies:
@@ -62,7 +65,6 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -79,6 +81,7 @@ flutter:
   assets:
     - assets/
     - assets/lottie/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

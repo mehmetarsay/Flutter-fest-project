@@ -10,6 +10,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool? isPassword;
   final TextEditingController? controller;
   final void Function()? onTap;
+  final  Function(String val)? onChange;
   final bool? readOnly;
   final Color? fillColor;
   final bool? insideHint;
@@ -20,20 +21,21 @@ class CustomTextFormField extends StatefulWidget {
 
   const CustomTextFormField(
       {BuildContext? context,
-      Key? key,
-      this.hintText,
-      this.prefixIcon,
-      this.textInputType,
-      this.isPassword = false,
-      @required this.controller,
-      this.onTap,
-      this.readOnly = false,
-      this.fillColor,
-      this.insideHint = false,
-      this.focusNode,
-      this.validator,
-      this.isNumber = false,
-      this.isSuffixIcon})
+        Key? key,
+        this.hintText,
+        this.prefixIcon,
+        this.textInputType,
+        this.isPassword = false,
+        @required this.controller,
+        this.onTap,
+        this.onChange,
+        this.readOnly = false,
+        this.fillColor,
+        this.insideHint = false,
+        this.focusNode,
+        this.validator,
+        this.isNumber = false,
+        this.isSuffixIcon})
       : super(key: key);
 
   @override
@@ -70,11 +72,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           if (!widget.insideHint!)
             widget.hintText != null
                 ? CustomText(
-                    widget.hintText,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    color: context.themeData.primaryTextTheme.bodyText1!.color,
-                  )
+              widget.hintText,
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+              color: context.themeData.primaryTextTheme.bodyText1!.color,
+            )
                 : const SizedBox(),
           const SizedBox(height: 10),
           TextFormField(
@@ -83,6 +85,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             readOnly: widget.readOnly!,
             // inputFormatters: [if (widget.isNumber!) Helper.NumberFormatter],
             onChanged: (value) {
+
+              widget.onChange!(value);
               setState(() {
                 isEmpty = value.isEmpty;
               });
@@ -93,6 +97,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 suffixIcon: widget.isSuffixIcon,
                 errorStyle: const TextStyle(fontSize: 16),
                 hintText: widget.insideHint! ? widget.hintText ?? '' : '',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
 
                 hintStyle: TextStyle(
                     color: Colors.black),

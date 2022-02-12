@@ -1,9 +1,13 @@
+import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zam/core/base/base_view_model.dart';
+import 'package:zam/model/place.dart';
 import 'package:zam/model/suggestion.dart';
+import 'package:zam/screens/data_add/subviews/bottom_sheet/bottom_sheet_view.dart';
 import 'package:zam/services/place_api_services.dart';
+import 'package:http/http.dart';
 
 class DataAddViewModel extends CustomBaseViewModel {
   final Set<Marker> markers = {};
@@ -27,6 +31,28 @@ class DataAddViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
+  Place? _selectPlace;
+
+  Place? get selectPlace => _selectPlace;
+
+  set selectPlace(Place? value) {
+    _selectPlace = value;
+    notifyListeners();
+  }
+
+  late BuildContext context;
+
+  GlobalKey<ExpandableBottomSheetState> key = new GlobalKey();
+
+  ExpansionStatus _expansionStatus = ExpansionStatus.contracted;
+
+
+  init(BuildContext context){
+    setInitialised(false);
+    this.context =context;
+    setInitialised(true);
+    notifyListeners();
+  }
   getPlaces() async {
     places.clear();
     if (searchController.text != '') {
@@ -38,12 +64,25 @@ class DataAddViewModel extends CustomBaseViewModel {
   }
 
   onTap(int index) async{
+    final client = Client();
     searchController.clear();
     var res = await PlaceApiServices(const Uuid().v4()).getPlaceDetailFromId(places.elementAt(index).placeId);
+    selectPlace = res;
+    CameraUpdate camera = CameraUpdate.newLatLngZoom(LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!), 20);
 
-    CameraUpdate camera = CameraUpdate.newLatLng(LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!));
-    markers.add(Marker(markerId: MarkerId('nokta'), position: LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!)));
+    selectPlace!.result!.placeId = places.elementAt(index).placeId;
+    if(res.result!.types!.isNotEmpty&&res.result!.types!.contains('street_address')){
+      markers.add(Marker(
+          markerId: MarkerId('nokta'), position: LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!)));
+    }
+    else{
+      markers.add(Marker(
+          icon:BitmapDescriptor.defaultMarker,
+          markerId: MarkerId('nokta'), position: LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!)));
+    }
+
     places = [];
-    controller.moveCamera(camera);
+    FocusManager.instance.primaryFocus?.unfocus();
+    controller.animateCamera(camera);
   }
 }

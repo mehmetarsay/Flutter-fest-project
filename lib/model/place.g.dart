@@ -75,7 +75,7 @@ Map<String, dynamic> _$AddressComponentToJson(AddressComponent instance) =>
 Geometry _$GeometryFromJson(Map<String, dynamic> json) => Geometry(
       location: json['location'] == null
           ? null
-          : Location.fromJson(json['location'] as Map<String, dynamic>),
+          : MyLocation.fromJson(json['location'] as Map<String, dynamic>),
       viewport: json['viewport'] == null
           ? null
           : Viewport.fromJson(json['viewport'] as Map<String, dynamic>),
@@ -86,12 +86,13 @@ Map<String, dynamic> _$GeometryToJson(Geometry instance) => <String, dynamic>{
       'viewport': instance.viewport,
     };
 
-Location _$LocationFromJson(Map<String, dynamic> json) => Location(
+MyLocation _$MyLocationFromJson(Map<String, dynamic> json) => MyLocation(
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
+Map<String, dynamic> _$MyLocationToJson(MyLocation instance) =>
+    <String, dynamic>{
       'lat': instance.lat,
       'lng': instance.lng,
     };
@@ -99,10 +100,10 @@ Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
 Viewport _$ViewportFromJson(Map<String, dynamic> json) => Viewport(
       northeast: json['northeast'] == null
           ? null
-          : Location.fromJson(json['northeast'] as Map<String, dynamic>),
+          : MyLocation.fromJson(json['northeast'] as Map<String, dynamic>),
       southwest: json['southwest'] == null
           ? null
-          : Location.fromJson(json['southwest'] as Map<String, dynamic>),
+          : MyLocation.fromJson(json['southwest'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ViewportToJson(Viewport instance) => <String, dynamic>{

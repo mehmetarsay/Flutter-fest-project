@@ -1,5 +1,6 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zam/core/base/base_model.dart';
 
 part 'place.g.dart';
 
@@ -77,15 +78,15 @@ class Geometry {
     this.viewport,
   });
 
-  Location? location;
+  MyLocation? location;
   Viewport? viewport;
   @override
   factory Geometry.fromJson(Map<String, dynamic> json) => _$GeometryFromJson(json);
 }
 
 @JsonSerializable()
-class Location {
-  Location({
+class MyLocation extends BaseModel{
+  MyLocation({
     this.lat,
     this.lng,
   });
@@ -93,8 +94,22 @@ class Location {
   double? lat;
   double? lng;
 
+
+  factory MyLocation.fromJson(Map<String, dynamic> json) => _$MyLocationFromJson(json);
+
+
+   Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    return  _$MyLocationToJson(this);
+  }
+
   @override
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+  fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    return _$MyLocationFromJson(json);
+  }
+  
+  
 }
 
 @JsonSerializable()
@@ -104,8 +119,8 @@ class Viewport {
     this.southwest,
   });
 
-  Location? northeast;
-  Location? southwest;
+  MyLocation? northeast;
+  MyLocation? southwest;
 
   @override
   factory Viewport.fromJson(Map<String, dynamic> json) => _$ViewportFromJson(json);
