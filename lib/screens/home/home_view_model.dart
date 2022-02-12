@@ -9,11 +9,10 @@ import 'package:uuid/uuid.dart';
 import 'package:zam/core/base/base_view_model.dart';
 import 'package:zam/model/place.dart';
 import 'package:zam/model/suggestion.dart';
-import 'package:zam/screens/data_add/subviews/bottom_sheet/bottom_sheet_view.dart';
 import 'package:zam/services/place_api_services.dart';
 import 'package:http/http.dart';
 
-class DataAddViewModel extends CustomBaseViewModel {
+class HomeViewModel extends CustomBaseViewModel {
   final Set<Marker> markers = {};
   late GoogleMapController _controller;
 
@@ -77,11 +76,9 @@ class DataAddViewModel extends CustomBaseViewModel {
     selectPlace!.result!.placeId = places.elementAt(index).placeId;
     if(res.result!.types!.isNotEmpty&&res.result!.types!.contains('street_address')){
 
-    var data = await rootBundle.load('assets/markers/home.png');
-    Uint8List imageByte = data.buffer.asUint8List();
-      markers.add(Marker(onTap: (){
-        bottomSheetOpen();
-      },
+      var data = await rootBundle.load('assets/markers/home.png');
+      Uint8List imageByte = data.buffer.asUint8List();
+      markers.add(Marker(
           icon:BitmapDescriptor.fromBytes(imageByte),
           markerId: MarkerId('nokta'), position: LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!)));
     }
@@ -89,9 +86,6 @@ class DataAddViewModel extends CustomBaseViewModel {
       var data = await rootBundle.load('assets/markers/street.png');
       Uint8List imageByte = data.buffer.asUint8List();
       markers.add(Marker(
-        onTap: (){
-          bottomSheetOpen();
-        },
           icon:BitmapDescriptor.fromBytes(imageByte),
           markerId: MarkerId('nokta'), position: LatLng(res.result!.geometry!.location!.lat!, res.result!.geometry!.location!.lng!)));
     }
@@ -99,21 +93,5 @@ class DataAddViewModel extends CustomBaseViewModel {
     places = [];
     FocusManager.instance.primaryFocus?.unfocus();
     controller.animateCamera(camera);
-    bottomSheetOpen();
-  }
-
-
-  bottomSheetOpen(){
-    showModalBottomSheet(
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
-
-        context: context, builder:(context){
-      return DataAddBottomSheet(place: selectPlace!,);
-    });
   }
 }

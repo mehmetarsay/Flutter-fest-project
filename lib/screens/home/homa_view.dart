@@ -9,8 +9,8 @@ import 'package:zam/screens/data_add/subviews/bottom_sheet/bottom_sheet_view.dar
 import 'package:zam/screens/map/map_style.dart';
 import 'package:zam/widgets/custom_text_form_field.dart';
 
-class DataAddView extends StatelessWidget {
-  const DataAddView({Key? key}) : super(key: key);
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,36 @@ class DataAddView extends StatelessWidget {
         onModelReady: (viewModel) => viewModel.init(context),
         builder: (context, viewModel, child) {
           return Scaffold(
-            extendBody: true,
+              extendBody: true,
               resizeToAvoidBottomInset: false,
               body: viewModel.initialised
-                  ? mapAndSearchWidget(viewModel)
+                  ? ExpandableBottomSheet(
+                  key: viewModel.key,
+                  onIsContractedCallback: () {
+                  },
+                  onIsExtendedCallback: () => print('extended'),
+                  persistentContentHeight: viewModel.selectPlace == null ? 0 : 100,
+                  background: mapAndSearchWidget(viewModel),
+                  persistentHeader: viewModel.selectPlace != null?Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                    constraints: BoxConstraints.expand(height: 40),
+                    child: Center(
+                      child: Container(
+                        height: 8.0,
+                        width: 50.0,
+                        color: Color.fromARGB((0.25 * 255).round(), 0, 0, 0),
+                      ),
+                    ),
+                  ):Container(),
+                  expandableContent: viewModel.selectPlace != null
+                      ? DataAddBottomSheet(
+                    place: viewModel.selectPlace!,
+                  )
+                      : Container())
                   : const Center(
-                      child: CircularProgressIndicator(),
-                    ));
+                child: CircularProgressIndicator(),
+              ));
         });
   }
 
