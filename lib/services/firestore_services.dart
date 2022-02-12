@@ -24,4 +24,10 @@ class FirestoreServiceApp {
         .doc(myUser.id)
         .set(myUser.toJson());
   }
+
+  Future<MyUser> loginUser(String userId) async {
+    return MyUser().fromJson(
+        (await firestore.collection(Collection.user.name).doc(userId).get())
+            .data()!);
+  }
 }

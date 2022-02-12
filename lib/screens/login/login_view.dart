@@ -41,20 +41,23 @@ class LoginView extends StatelessWidget {
   Column actionColumn(LoginViewModel viewModel, BuildContext context) {
     return Column(
       children: [
-        const CustomButton(text: 'Giriş Yap'),
+        CustomButton(text: 'Giriş Yap', onPressed: ()=>viewModel.login(),),
         TextButton(onPressed: () => context.navigateTo(RegisterView()), child: const CustomText('Kayıt Ol'))
       ],
     );
   }
 
-  Column inputColumn(LoginViewModel viewModel) {
-    return Column(
-      children: [
-        CustomTextFormField(
-            controller: viewModel.email, hintText: 'E-mail', insideHint: true),
-        CustomTextFormField(
-            controller: viewModel.password, hintText: 'Şifre', insideHint: true)
-      ],
+  Widget inputColumn(LoginViewModel viewModel) {
+    return Form(
+      key: viewModel.formKey,
+      child: Column(
+        children: [
+          CustomTextFormField(
+              controller: viewModel.email, hintText: 'E-mail', insideHint: true),
+          CustomTextFormField(
+              controller: viewModel.password, hintText: 'Şifre', insideHint: true)
+        ],
+      ),
     );
   }
 }

@@ -18,7 +18,7 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         return userCredential.user;
-      }else {
+      } else {
         return null;
       }
     } on FirebaseAuthException catch (e) {
@@ -30,6 +30,25 @@ class AuthService {
       return null;
     } catch (e) {
       print(e);
+      return null;
+    }
+  }
+
+  Future login(String email, String password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (userCredential.user != null) {
+        return userCredential.user;
+      } else {
+        return null;
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
       return null;
     }
   }
