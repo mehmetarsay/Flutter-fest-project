@@ -33,8 +33,8 @@ class FirestoreServiceApp {
    await firestore.collection('place').doc(placeData.placeId).set(placeData.toJson());
   }
 
-  addPlaceUser(PlaceUserData placeUserData,PlaceData placeData)async{
-    await firestore.collection('place').doc(placeData.placeId).collection('users').add(placeUserData.toJson());
+  addPlaceUser(dynamic data,PlaceData placeData)async{
+    await firestore.collection('place').doc(placeData.placeId).collection('users').add(data.toJson());
   }
 
  Future<PlaceData?> getPlace(String id)async{

@@ -54,6 +54,7 @@ dependencies:
   expandable_bottom_sheet: ^1.1.1+1
   flutter_spinbox: ^0.8.0
   expandable: ^5.0.1
+  location:
 
 
 dev_dependencies:
@@ -82,6 +83,7 @@ flutter:
     - assets/
     - assets/lottie/
     - assets/images/
+    - assets/markers/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

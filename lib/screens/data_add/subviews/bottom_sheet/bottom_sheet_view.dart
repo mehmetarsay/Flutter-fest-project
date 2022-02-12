@@ -16,9 +16,14 @@ class DataAddBottomSheet extends StatelessWidget {
         builder: (context, viewModel, child) {
           return Container(
             constraints: BoxConstraints(
-              maxHeight: 600,
+              maxHeight: 800,
             ),
-            color: Colors.white,
+            height: MediaQuery.of(context).size.height/1.3,
+            decoration: BoxDecoration(
+                color: Colors.white,
+              borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10))
+            ),
+            
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -30,9 +35,14 @@ class DataAddBottomSheet extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: Text(
-                          place.result!.name!,
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              place.result!.name!,
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, fontSize: 18),
+                            ),
+                          ],
                         ),
                       ),
                       Expanded(
@@ -41,7 +51,7 @@ class DataAddBottomSheet extends StatelessWidget {
                           physics: BouncingScrollPhysics(),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Column(
+                            child: place.result!.types!.isNotEmpty&&place.result!.types!.contains('street_address')?Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -77,7 +87,42 @@ class DataAddBottomSheet extends StatelessWidget {
                                   height: 40,
                                 ),
                               ],
-                            ),
+                            ):
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    spinBoxWidget('Araba Park ${viewModel.streetUserData.carPark??''}',
+                                        icon: Icons.local_parking,
+                                        onChange: (value) {
+                                      viewModel.streetUserData.carPark = value;
+                                      viewModel.notifyListeners();
+                                    }, desc: 'Araba park etme açısından sokağın kullanımı nasıl? çok iyi 5 kötü 0'),
+                                    spinBoxWidget('Su Kalitesi ${viewModel.streetUserData.waterQuality??''}', max: 5, icon: Icons.water, onChange: (value) {
+                                      viewModel.streetUserData.waterQuality = value;
+                                      viewModel.notifyListeners();
+                                    }, desc: 'Sokaktan geçen suyun kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
+                                    spinBoxWidget('Koku ${viewModel.streetUserData.smell??''} ', max: 5, icon: Icons.wb_iridescent_rounded, onChange: (value) {
+                                      viewModel.streetUserData.smell = value;
+                                      viewModel.notifyListeners();
+                                    }, desc: 'Sokaktaki kokuyu bize puanlayınız? çok güzel 5/ çok kötü 0'),
+                                    spinBoxWidget('İnternet Kalitesi ${viewModel.placeUserData.internetQuality??''}', max: 5, icon: Icons.network_check, onChange: (value) {
+                                      viewModel.placeUserData.internetQuality = value;
+                                      viewModel.notifyListeners();
+                                    }, desc: 'Sokaktaki ki internet kalitesini kendi açınızdan 1-5 arasında puanlayınız '),
+                                    spinBoxWidget('Elektirik Kalitesi ${viewModel.placeUserData.electricityQuality??''}', max: 5, icon: Icons.whatshot, onChange: (value) {
+                                      viewModel.placeUserData.electricityQuality = value;
+                                      viewModel.notifyListeners();
+                                    }, desc: 'Sokağın içinde ki elektiriğin kesilip kesilmediği durumuna göre kendi açınızdan 1-5 arasında puanlayınız '),
+                                    spinBoxWidget('Sokağın Yapım Kalitesi ${viewModel.streetUserData.buildQuality??''}', max: 5, icon: Icons.spellcheck, onChange: (value) {
+                                      viewModel.streetUserData.buildQuality = value;
+                                      viewModel.notifyListeners();
+                                    }, desc: 'Sokağın asflatı olması veya yapımının iyi olmasına göre puan veriniz? çok iyi 5 / çok kötü 0  '),
+                                    SizedBox(
+                                      height: 40,
+                                    ),
+                                  ],
+                                )
                           ),
                         ),
                       )
