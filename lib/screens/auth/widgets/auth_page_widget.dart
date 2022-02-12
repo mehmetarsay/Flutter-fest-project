@@ -44,7 +44,7 @@ class AuthPage extends StatelessWidget {
 
   BoxDecoration backgroundDecoration(BuildContext context) {
     return BoxDecoration(
-      color: context.themeData.colorScheme.tertiary.withOpacity(0.5),
+      color: context.themeData.colorScheme.onSecondary.withOpacity(0.5),
       image: DecorationImage(
         colorFilter:
             ColorFilter.mode(Colors.black.withOpacity(0.1), BlendMode.dstATop),
@@ -94,7 +94,7 @@ class AuthPage extends StatelessWidget {
             child: FlatButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),
-              color: context.themeData.colorScheme.tertiary,
+              color: context.themeData.colorScheme.onSecondary,
               onPressed: onPressed,
               child: Container(
                 padding: const EdgeInsets.symmetric(

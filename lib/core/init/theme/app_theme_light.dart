@@ -18,8 +18,9 @@ class AppThemeLight extends AppTheme with ILightTheme {
         primaryColor: colorSchemeLight!.blue,
         colorScheme: const ColorScheme.light().copyWith(
             primary: colorSchemeLight!.blue,
+          onPrimary:  colorSchemeLight!.grey,
             secondary: colorSchemeLight!.red,
-            tertiary: colorSchemeLight!.white,
-            onTertiary: colorSchemeLight!.grey),
+            onSecondary: colorSchemeLight!.white,
+            ),
       );
 }
