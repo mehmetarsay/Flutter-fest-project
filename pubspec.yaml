@@ -50,6 +50,7 @@ dependencies:
   lottie: ^1.2.1
   flutter_google_places: ^0.3.0
   uuid: ^3.0.5
+  firebase_auth: ^3.3.7
 
 
 dev_dependencies:
