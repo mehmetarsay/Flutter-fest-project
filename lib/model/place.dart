@@ -1,3 +1,9 @@
+
+import 'package:json_annotation/json_annotation.dart';
+
+part 'place.g.dart';
+
+@JsonSerializable()
 class Place {
   Place({
     this.htmlAttributions,
@@ -8,8 +14,12 @@ class Place {
   List<dynamic>? htmlAttributions;
   Result? result;
   String? status;
+
+  @override
+  fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 }
 
+@JsonSerializable()
 class Result {
   Result({
     this.addressComponents,
@@ -40,8 +50,12 @@ class Result {
   List<String>? types;
   String? url;
   int? utcOffset;
+
+  @override
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 }
 
+@JsonSerializable()
 class AddressComponent {
   AddressComponent({
     this.longName,
@@ -52,8 +66,11 @@ class AddressComponent {
   String? longName;
   String? shortName;
   List<String>? types;
+  @override
+  factory AddressComponent.fromJson(Map<String, dynamic> json) => _$AddressComponentFromJson(json);
 }
 
+@JsonSerializable()
 class Geometry {
   Geometry({
     this.location,
@@ -62,8 +79,11 @@ class Geometry {
 
   Location? location;
   Viewport? viewport;
+  @override
+  factory Geometry.fromJson(Map<String, dynamic> json) => _$GeometryFromJson(json);
 }
 
+@JsonSerializable()
 class Location {
   Location({
     this.lat,
@@ -72,8 +92,12 @@ class Location {
 
   double? lat;
   double? lng;
+
+  @override
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 }
 
+@JsonSerializable()
 class Viewport {
   Viewport({
     this.northeast,
@@ -82,4 +106,7 @@ class Viewport {
 
   Location? northeast;
   Location? southwest;
+
+  @override
+  factory Viewport.fromJson(Map<String, dynamic> json) => _$ViewportFromJson(json);
 }

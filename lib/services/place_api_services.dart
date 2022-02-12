@@ -1,49 +1,20 @@
+
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
+import 'package:zam/core/constant/app/app_constants.dart';
+import 'package:zam/model/place.dart';
+import 'package:zam/model/suggestion.dart';
 
-class Place {
-  String? streetNumber;
-  String? street;
-  String? city;
-  String? zipCode;
-
-  Place({
-    this.streetNumber,
-    this.street,
-    this.city,
-    this.zipCode,
-  });
-
-  @override
-  String toString() {
-    return 'Place(streetNumber: $streetNumber, street: $street, city: $city, zipCode: $zipCode)';
-  }
-}
-
-class Suggestion {
-  final String placeId;
-  final String description;
-
-  Suggestion(this.placeId, this.description);
-
-  @override
-  String toString() {
-    return 'Suggestion(description: $description, placeId: $placeId)';
-  }
-}
-
-class PlaceApiProvider {
+class PlaceApiServices {
   final client = Client();
 
-  PlaceApiProvider(this.sessionToken);
+  PlaceApiServices(this.sessionToken);
 
   final sessionToken;
 
-  static final String androidKey = 'AIzaSyAuL4wISum-tvnF5MElq2w83ODiq-KUC1o';
-  static final String iosKey = 'AIzaSyAuL4wISum-tvnF5MElq2w83ODiq-KUC1o';
-  final apiKey =  androidKey ;
+  final apiKey =  ApplicationConstants.androidKey ;
 
   Future<List<Suggestion>> fetchSuggestions(String input, String lang) async {
     final request =
@@ -74,26 +45,9 @@ class PlaceApiProvider {
 
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
+
       if (result['status'] == 'OK') {
-        final components =
-        result['result']['address_components'] as List<dynamic>;
-        // build result
-        final place = Place();
-        components.forEach((c) {
-          final List type = c['types'];
-          if (type.contains('street_number')) {
-            place.streetNumber = c['long_name'];
-          }
-          if (type.contains('route')) {
-            place.street = c['long_name'];
-          }
-          if (type.contains('locality')) {
-            place.city = c['long_name'];
-          }
-          if (type.contains('postal_code')) {
-            place.zipCode = c['long_name'];
-          }
-        });
+        Place place = Place().fromJson(result);
         return place;
       }
       throw Exception(result['error_message']);

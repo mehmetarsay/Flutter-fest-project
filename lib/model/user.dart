@@ -14,7 +14,7 @@ class MyUser extends BaseModel {
   MyUser({this.id, this.name, this.surname, this.email});
 
   @override
-  fromJson(Map<String, dynamic> json) => _$MyUserFromJson(json);
+   fromJson(Map<String, dynamic> json) => _$MyUserFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$MyUserToJson(this);

@@ -4,8 +4,6 @@ import 'package:stacked/stacked.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zam/core/constant/app/app_constants.dart';
 import 'package:zam/screens/data_add/data_add_view_model.dart';
-import 'package:zam/screens/home/help/address_search.dart';
-import 'package:zam/screens/home/help/place.dart';
 import 'package:zam/screens/map/widget/map_style.dart';
 import 'package:zam/widgets/custom_text_form_field.dart';
 
@@ -30,7 +28,7 @@ class DataAddView extends StatelessWidget {
                   },
                 ),
                 Positioned(
-                  top: 50,
+                  top: 20,
                   left: 0,
                   right: 0,
                   child: Column(
@@ -43,67 +41,37 @@ class DataAddView extends StatelessWidget {
                             hintText: 'Arama yapın',
                             isSuffixIcon: GestureDetector(
                                 onTap:(){
-
+                                  viewModel.getPlaces();
                                 },
-                                child: Icon(Icons.send)),
+                                child: Icon(Icons.search)),
                             insideHint: true),
                       ),
-                      Container(
-                        height: 200,
-                        child: ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: viewModel.places.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                height: 50,
-                                color:Colors.white,
-                                child: Center(child: Text('Entry ${viewModel.places[index].street}')),
-                              );
-                            }),
-                      )
+                      ListView.builder(
+                        shrinkWrap: true,
+                          padding: const EdgeInsets.all(8),
+                          itemCount: viewModel.places.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: GestureDetector(
+                                onTap: (){
+                                  viewModel.onTap(index);
+                                },
+                                child: Container(
+                                  height: 50,
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                      color:Colors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(8))
+                                  ),
+                                  child: Text('${viewModel.places[index].description}'),
+                                ),
+                              ),
+                            );
+                          })
                     ],
                   ),
-
-                  /*Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white
-                    ),
-                    child: TextField(
-                      controller: viewModel.searchController,
-                      readOnly: true,
-                      onTap: () async {
-                        // generate a new token here
-                        final sessionToken = Uuid().v4();
-                        final Suggestion? result = await showSearch(
-                          context: context,
-                          delegate: AddressSearch(sessionToken),
-                        );
-                        // This will change the text displayed in the TextField
-                        if (result != null) {
-                          final placeDetails = await PlaceApiProvider(sessionToken)
-                              .getPlaceDetailFromId(result.placeId);
-
-                        }
-                      },
-                      decoration: InputDecoration(
-                        icon: Container(
-                          width: 10,
-                          height: 10,
-                          child: const Icon(
-                            Icons.search,
-                            color: Colors.black,
-                          ),
-                        ),
-                        hintText: "Enter your shipping address",
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(
-                          color: Colors.black
-                        ),
-                        contentPadding: EdgeInsets.only(left: 8.0, top: 16.0),
-                      ),
-                    ),
-                  ),*/
                 ),
 
               ],
