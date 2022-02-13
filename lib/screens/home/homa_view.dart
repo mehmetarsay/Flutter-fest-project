@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'package:uuid/uuid.dart';
 import 'package:zam/core/constant/app/app_constants.dart';
 import 'package:zam/core/extension/context_extension.dart';
 import 'package:zam/screens/data_add/data_add_view.dart';
@@ -54,6 +53,7 @@ class HomeView extends StatelessWidget {
                           ? HomeBottomSheet(
                               place: viewModel.selectPlace!,
                               detailReport: viewModel.detailReport,
+                        loading: viewModel.loading,
                             )
                           : Container())
                   : const Center(

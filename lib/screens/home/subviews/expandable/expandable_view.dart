@@ -4,13 +4,15 @@ import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:zam/model/detail_report.dart';
+import 'package:zam/model/near_by_place.dart';
 import 'package:zam/model/place.dart';
 import 'package:zam/screens/home/subviews/expandable/expandable_view_model.dart';
 
 class HomeBottomSheet extends StatelessWidget {
-  const HomeBottomSheet({Key? key, required this.place,required this.detailReport}) : super(key: key);
+  const HomeBottomSheet({Key? key, required this.place,required this.detailReport,required this.loading}) : super(key: key);
   final Place place;
   final DetailReport detailReport;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +56,15 @@ class HomeBottomSheet extends StatelessWidget {
                                   CircularPercentIndicator(
                                     radius: 60.0,
                                     lineWidth: 15.0,
-                                    percent: 3/5,
+                                    percent: detailReport.point??0,
                                     center: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                         Text("3/5",style: TextStyle(
+                                         loading&&detailReport.point!=null?Text("${(detailReport.point!*100).toStringAsFixed(0)}%",style: TextStyle(
                                           fontSize: 30,
                                           fontWeight: FontWeight.bold,
-                                        ),),
-                                        Text('Puan')
+                                        ),):Text('Hesaplanıyor'),
+                                        if( loading&&detailReport.point!=null)Text('Yaşanabilir')
                                       ],
                                     ),
                                     progressColor: Colors.green,
@@ -71,16 +73,69 @@ class HomeBottomSheet extends StatelessWidget {
                                   Column(
                                     children: [
                                       SizedBox(height: 20,),
-                                      linearBarWidgets('Bina yaşı',desc: '',percent: listMeanMethod(detailReport.buildingAge)/40,total: '${listMeanMethod(detailReport.buildingAge)}/40',icon: Icons.home),
-                                      linearBarWidgets('Su Kalitesi',desc: '',percent: listMeanMethod(detailReport.waterQuality)/5,total: '${listMeanMethod(detailReport.waterQuality)}/5',icon: Icons.water),
-                                      linearBarWidgets('Kira Ücreti',desc: '',percent: listMeanMethod(detailReport.rentMoney)/10000,total: '${listMeanMethod(detailReport.rentMoney)}/10000',icon: Icons.money),
-                                      linearBarWidgets('Tesisat Kalitesi',desc: '',percent: listMeanMethod(detailReport.plumbingQuality)/5,total: '${listMeanMethod(detailReport.plumbingQuality)}/5',icon: Icons.wrap_text),
-                                      linearBarWidgets('internet Kalitesi',desc: '',percent: listMeanMethod(detailReport.internetQuality)/5,total: '${ listMeanMethod(detailReport.internetQuality)}/5',icon: Icons.network_check),
-                                      linearBarWidgets('Elektirik Kalitesi',desc: '',percent: listMeanMethod(detailReport.electricityQuality)/5,total: '${listMeanMethod(detailReport.electricityQuality)}/5',icon: Icons.whatshot),
-                                      linearBarWidgets('Dayanıklılık',desc: '',percent: listMeanMethod(detailReport.durability)/5,total: '${listMeanMethod(detailReport.durability)}/5',icon: Icons.spellcheck),
+                                      linearBarWidgets('Bina yaşı',desc: '',percent: listMeanMethod(detailReport.buildingAge)/40,total: '${(listMeanMethod(detailReport.buildingAge)).toStringAsFixed(1)}/40',icon: Icons.home),
+                                      linearBarWidgets('Su Kalitesi',desc: '',percent: listMeanMethod(detailReport.waterQuality)/5,total: '${listMeanMethod(detailReport.waterQuality).toStringAsFixed(1)}/5',icon: Icons.water),
+                                      linearBarWidgets('Kira Ücreti',desc: '',percent: listMeanMethod(detailReport.rentMoney)/10000,total: '${listMeanMethod(detailReport.rentMoney).toStringAsFixed(1)}/10000',icon: Icons.money),
+                                      linearBarWidgets('Tesisat Kalitesi',desc: '',percent: listMeanMethod(detailReport.plumbingQuality)/5,total: '${listMeanMethod(detailReport.plumbingQuality).toStringAsFixed(1)}/5',icon: Icons.wrap_text),
+                                      linearBarWidgets('internet Kalitesi',desc: '',percent: listMeanMethod(detailReport.internetQuality)/5,total: '${ listMeanMethod(detailReport.internetQuality).toStringAsFixed(1)}/5',icon: Icons.network_check),
+                                      linearBarWidgets('Elektirik Kalitesi',desc: '',percent: listMeanMethod(detailReport.electricityQuality)/5,total: '${listMeanMethod(detailReport.electricityQuality).toStringAsFixed(1)}/5',icon: Icons.whatshot),
+                                      linearBarWidgets('Dayanıklılık',desc: '',percent: listMeanMethod(detailReport.durability)/5,total: '${listMeanMethod(detailReport.durability).toStringAsFixed(1)}/5',icon: Icons.spellcheck),
 
-
-
+                                      for(var nearPlace in detailReport.placeNearBy!.keys)
+                                      ExpandablePanel(
+                                        controller:ExpandableController(initialExpanded: false),
+                                        header: Row(
+                                          children: [
+                                            Icon(
+                                              detailReport.placeNearBy[nearPlace]['icon'],
+                                              color: Colors.grey,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              detailReport.placeNearBy[nearPlace]['name'] + ' (${detailReport.placeNearBy[nearPlace]['list'].length})',
+                                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                                            ),
+                                          ],
+                                        ),
+                                        expanded: Padding(
+                                          padding: const EdgeInsets.only(left: 15,bottom: 20),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              for(NearByPlace nearPlaceSingle in detailReport.placeNearBy[nearPlace]['list'])
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Container(
+                                                        color: Colors.white,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(5.0),
+                                                          child: Text(nearPlaceSingle.name!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                                        )),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(width: 30,),
+                                                      Row(
+                                                        children: [
+                                                          Icon(Icons.star,color: Colors.yellow,size: 16,),
+                                                          SizedBox(width: 5,),
+                                                          Text('Puan: ${nearPlaceSingle.rating??'belirtilmedi'}',),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        collapsed: Text(''),
+                                      ),
 
                                     ],
                                   ),

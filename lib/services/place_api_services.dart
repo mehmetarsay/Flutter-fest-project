@@ -32,9 +32,7 @@ class PlaceApiServices {
       final result = json.decode(response.body);
       if (result['status'] == 'OK') {
         // compose suggestions in a list
-        return result['predictions']
-            .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
-            .toList();
+        return result['predictions'].map<Suggestion>((p) => Suggestion(p['place_id'], p['description'])).toList();
       }
       if (result['status'] == 'ZERO_RESULTS') {
         return [];
@@ -46,8 +44,7 @@ class PlaceApiServices {
   }
 
   Future<Place> getPlaceDetailFromId(String placeId) async {
-    final request =
-        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$apiKey&sessiontoken=$sessionToken';
+    final request = 'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$apiKey&sessiontoken=$sessionToken';
     final response = await client.get(Uri.parse(request));
 
     if (response.statusCode == 200) {
@@ -63,13 +60,12 @@ class PlaceApiServices {
     }
   }
 
-  Future getNearBySearch(
-          String location, int radius, NearByType nearByType) async =>
-      await _networkManager!.get(Network.nearBySearch.value, NearByPlace(),
-          queryParameters: {
-            'key': apiKey,
-            'location': location,
-            'radius': radius,
-            'type': nearByType.name
-          });
+  Future getNearBySearch(String location, int radius, String nearByType) async =>
+      await _networkManager!.get(Network.nearBySearch.value, NearByPlace(), queryParameters: {
+        'key': apiKey,
+        'location': location,
+        'language': 'tr',
+        'radius': radius,
+        'type': nearByType,
+      });
 }
