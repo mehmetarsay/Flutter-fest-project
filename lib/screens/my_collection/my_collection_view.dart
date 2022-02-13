@@ -27,30 +27,32 @@ class MyCollectionView extends StatelessWidget {
                 ? Center(child: CircularProgressIndicator())
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        expandableHeader(
-                          context,
-                          viewModel,
-                          title: 'Cadde/Sokak',
-                          desc: 'Değerlendirdiğiniz cadde ve sokaklar',
-                          iconData: Icons.map,
-                          childList: (viewModel.listStreet as List)
-                              .map((e) => expandableStreet(
-                                  context, e['placeData'],
-                                  streetAnalysis: e['data']))
-                              .toList(),
-                        ),
-                        expandableHeader(context, viewModel,
-                            title: 'Apartman',
-                            desc: 'Değerlendirdiğiniz apartmanlar',
-                            iconData: Icons.apartment,
-                            childList: (viewModel.listPlace as List)
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          expandableHeader(
+                            context,
+                            viewModel,
+                            title: 'Cadde/Sokak',
+                            desc: 'Değerlendirdiğiniz cadde ve sokaklar',
+                            iconData: Icons.map,
+                            childList: (viewModel.listStreet as List)
                                 .map((e) => expandableStreet(
                                     context, e['placeData'],
-                                    placeAnalysis: e['data']))
-                                .toList()),
-                      ],
+                                    streetAnalysis: e['data']))
+                                .toList(),
+                          ),
+                          expandableHeader(context, viewModel,
+                              title: 'Apartman',
+                              desc: 'Değerlendirdiğiniz apartmanlar',
+                              iconData: Icons.apartment,
+                              childList: (viewModel.listPlace as List)
+                                  .map((e) => expandableStreet(
+                                      context, e['placeData'],
+                                      placeAnalysis: e['data']))
+                                  .toList()),
+                        ],
+                      ),
                     ),
                   ),
           );
