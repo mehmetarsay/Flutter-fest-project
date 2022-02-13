@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zam/core/constant/enum/collection_enum.dart';
 import 'package:zam/model/place_data.dart';
 import 'package:zam/model/place_user_data.dart';
@@ -35,6 +36,10 @@ class FirestoreServiceApp {
 
   addPlaceUser(dynamic data,PlaceData placeData)async{
     await firestore.collection('place').doc(placeData.placeId).collection('users').add(data.toJson());
+    await firestore.collection('userPlace').doc(FirebaseAuth.instance.currentUser!.uid).collection(placeData.type!).add({
+      'placeData':placeData.toJson(),
+      'data':data.toJson(),
+    });
   }
 
  Future<PlaceData?> getPlace(String id)async{

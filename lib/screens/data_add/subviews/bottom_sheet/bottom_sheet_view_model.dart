@@ -51,7 +51,9 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
     }
     placeUserData.id = FirebaseAuth.instance.currentUser!.uid;
     if(placeData!.type=='street'){
-      if(streetUserData.buildQuality!=null||streetUserData.smell!=null||streetUserData.carPark!=null||streetUserData.electricityQuality!=null||streetUserData.internetQuality!=null||streetUserData.waterQuality!=null){
+      if(streetUserData.buildQuality!=null||streetUserData.smell!=null||
+          streetUserData.carPark!=null||streetUserData.electricityQuality!=null||
+          streetUserData.internetQuality!=null||streetUserData.waterQuality!=null){
         FirestoreServiceApp.instance!.addPlaceUser(streetUserData, placeData!);
         Fluttertoast.showToast(msg: 'Gönderildi');
         streetUserData = StreetUserData(
@@ -67,9 +69,11 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
       else{
         Fluttertoast.showToast(msg: 'Hepsi Boş olamaz');
       }
-
     }else{
-      if(placeUserData.waterQuality!=null||placeUserData.internetQuality!=null||placeUserData.electricityQuality!=null||placeUserData.durability!=null||placeUserData.plumbingQuality!=null||placeUserData.rentMoney!=null||placeUserData.buildingAge!=null){
+      if(placeUserData.waterQuality!=null||placeUserData.internetQuality!=null||
+          placeUserData.electricityQuality!=null||
+          placeUserData.durability!=null||placeUserData.plumbingQuality!=null||
+          placeUserData.rentMoney!=null||placeUserData.buildingAge!=null){
         FirestoreServiceApp.instance!.addPlaceUser(placeUserData, placeData!);
         Fluttertoast.showToast(msg: 'Gönderildi');
         placeUserData = PlaceUserData(
@@ -78,12 +82,11 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
             electricityQuality: null,
             internetQuality: null,plumbingQuality: null,rentMoney: null,waterQuality: null
         );
-        context.pop();
+        Navigator.pop(context);
       }
       else{
         Fluttertoast.showToast(msg: 'Hepsi Boş olamaz');
       }
-
     }
     notifyListeners();
 
