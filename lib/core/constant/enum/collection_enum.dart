@@ -1,4 +1,6 @@
 enum Collection {
   user,
-  place
+  place,
+  userPlace,
+  street
 }

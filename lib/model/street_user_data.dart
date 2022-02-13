@@ -24,16 +24,10 @@ class StreetUserData {
   });
 
   @override
-  factory StreetUserData.fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw _$StreetUserDataFromJson(json);
-  }
+  factory StreetUserData.fromJson(Map<String, dynamic> json) => _$StreetUserDataFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    return _$StreetUserDataToJson(this);
-  }
+  Map<String, dynamic> toJson() => _$StreetUserDataToJson(this);
 
 
 }

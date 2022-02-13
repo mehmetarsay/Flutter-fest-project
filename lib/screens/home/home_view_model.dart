@@ -23,6 +23,14 @@ class HomeViewModel extends CustomBaseViewModel {
   late GoogleMapController _controller;
 
   double _radius  = 0.1;
+  bool _popUpVisible = false;
+
+  bool get popUpVisible => _popUpVisible;
+
+  set popUpVisible(bool value) {
+    _popUpVisible = value;
+    notifyListeners();
+  }
 
   double get radius => _radius;
 
