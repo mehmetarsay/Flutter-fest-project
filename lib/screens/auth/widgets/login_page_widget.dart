@@ -34,11 +34,11 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       // padding: EdgeInsets.all(100.0),
-                      child: const Center(
+                      child:  Center(
                         child: Icon(
-                          Icons.check,
-                          color: Colors.redAccent,
-                          size: 50.0,
+                          Icons.home,
+                          color: context.themeData.colorScheme.primary,
+                          size: 100.0,
                         ),
                       ),
                     ),

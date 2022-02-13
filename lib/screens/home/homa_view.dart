@@ -1,10 +1,12 @@
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:zam/core/constant/app/app_constants.dart';
 import 'package:zam/core/extension/context_extension.dart';
+import 'package:zam/screens/auth/auth_view.dart';
 import 'package:zam/screens/data_add/data_add_view.dart';
 import 'package:zam/screens/home/home_view_model.dart';
 import 'package:zam/screens/home/subviews/expandable/expandable_view.dart';
@@ -35,7 +37,7 @@ class HomeView extends StatelessWidget {
                           onIsContractedCallback: () {},
                           onIsExtendedCallback: () => print('extended'),
                           persistentContentHeight:
-                              viewModel.selectPlace == null ? 0 : 100,
+                              viewModel.selectPlace == null ? 0 : 170,
                           background: mapAndSearchWidget(viewModel),
                           persistentHeader: viewModel.selectPlace != null
                               ? Container(
@@ -61,6 +63,7 @@ class HomeView extends StatelessWidget {
                                   place: viewModel.selectPlace!,
                                   detailReport: viewModel.detailReport,
                             loading: viewModel.loading,
+                            meter: viewModel.radius*1000,
                                 )
                               : Container())
                       : const Center(
@@ -101,18 +104,15 @@ class HomeView extends StatelessWidget {
         children: [
           FloatingActionButton(onPressed: () {
             viewModel.popUpVisible = false;
-            context.navigateTo(DataAddView());
-          }, child: Icon(Icons.add)),
+          }, child: Icon(Icons.close)),
           Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: FloatingActionButton(
-              onPressed: () {
-                viewModel.popUpVisible = false;
-                context.navigateTo(ProfileView());
-              },
-              child: Icon(Icons.person),
-            ),
+            padding: const EdgeInsets.only(top:8.0),
+            child: FloatingActionButton(onPressed: () {
+              viewModel.popUpVisible = false;
+              context.navigateTo(DataAddView());
+            }, child: Icon(Icons.add)),
           ),
+
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: FloatingActionButton(
@@ -121,6 +121,17 @@ class HomeView extends StatelessWidget {
                 context.navigateTo(MyCollectionView());
               },
               child: Icon(Icons.library_books),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: FloatingActionButton(
+              onPressed: () async{
+                viewModel.popUpVisible = false;
+                await FirebaseAuth.instance.signOut();
+                context.navigateToRemoveUntil(AuthView());
+              },
+              child: Icon(Icons.logout),
             ),
           ),
         ],
@@ -223,7 +234,7 @@ class HomeView extends StatelessWidget {
     return Positioned(
       right: 0,
       left: 0,
-      bottom: 150,
+      bottom: 220,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -255,13 +266,8 @@ class HomeView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (viewModel.selectPlace!.result!.types!.isNotEmpty &&
-                  viewModel.selectPlace!.result!.types!
-                      .contains('street_address')) {
                 viewModel.pointCalculate();
-              } else {
-                Fluttertoast.showToast(msg: 'Cadde için hesaplama yapamıyorum');
-              }
+
             },
             child: Container(
               width: 100,

@@ -33,9 +33,9 @@ class SignUpPage extends StatelessWidget {
                   // padding: EdgeInsets.all(100.0),
                   child: Center(
                     child: Icon(
-                      Icons.add,
-                      color: Colors.redAccent,
-                      size: 50.0,
+                      Icons.home,
+                      color: context.themeData.colorScheme.primary,
+                      size: 100.0,
                     ),
                   ),
                 ),

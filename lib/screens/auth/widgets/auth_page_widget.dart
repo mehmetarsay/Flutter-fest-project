@@ -65,8 +65,9 @@ class AuthPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const <Widget>[
           Text(
-            "Uygulama Adı",
+            "Yaşanabilir mi?",
             style: TextStyle(
+              fontWeight: FontWeight.bold,
               color: Color(0xff2680EA),
               fontSize: 20.0,
             ),

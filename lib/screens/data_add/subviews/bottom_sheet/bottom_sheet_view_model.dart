@@ -7,8 +7,7 @@ import 'package:zam/model/place.dart';
 import 'package:zam/model/place_data.dart';
 import 'package:zam/model/place_user_data.dart';
 import 'package:zam/model/street_user_data.dart';
-import 'package:zam/screens/login/login_view.dart';
-import 'package:zam/services/auth_services.dart';
+import 'package:zam/screens/auth/auth_view.dart';
 import 'package:zam/services/firestore_services.dart';
 
 class DataAddBottomSheetViewModel extends CustomBaseViewModel {
@@ -46,7 +45,7 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
     }
     if (FirebaseAuth.instance.currentUser == null) {
       Fluttertoast.showToast(msg: 'Giriş Yapmanız Gerekmektedir.');
-      context.navigateToReplacement(const LoginView());
+      context.navigateToReplacement(const AuthView());
       return;
     }
     placeUserData.id = FirebaseAuth.instance.currentUser!.uid;

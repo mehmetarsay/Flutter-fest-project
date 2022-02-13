@@ -9,10 +9,11 @@ import 'package:zam/model/place.dart';
 import 'package:zam/screens/home/subviews/expandable/expandable_view_model.dart';
 
 class HomeBottomSheet extends StatelessWidget {
-  const HomeBottomSheet({Key? key, required this.place,required this.detailReport,required this.loading}) : super(key: key);
+  const HomeBottomSheet({Key? key, required this.place,required this.detailReport,required this.loading,required this.meter}) : super(key: key);
   final Place place;
   final DetailReport detailReport;
   final bool loading;
+  final double meter;
 
   @override
   Widget build(BuildContext context) {
@@ -53,33 +54,60 @@ class HomeBottomSheet extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  CircularPercentIndicator(
-                                    radius: 60.0,
-                                    lineWidth: 15.0,
-                                    percent: detailReport.point??0,
-                                    center: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                         loading&&detailReport.point!=null?Text("${(detailReport.point!*100).toStringAsFixed(0)}%",style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                        ),):Text('Hesaplanıyor'),
-                                        if( loading&&detailReport.point!=null)Text('Yaşanabilir')
-                                      ],
-                                    ),
-                                    progressColor: Colors.green,
-                                    backgroundColor: Colors.grey,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      CircularPercentIndicator(
+                                        radius: 60.0,
+                                        lineWidth: 15.0,
+                                        percent: meter*2/1000,
+                                        center: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("${(meter).toStringAsFixed(0)}",style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                            if( loading&&detailReport.point!=null)Text('Metre')
+                                          ],
+                                        ),
+                                        progressColor: Colors.green,
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                      CircularPercentIndicator(
+                                        radius: 60.0,
+                                        lineWidth: 15.0,
+                                        percent: detailReport.point??0,
+                                        center: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                             loading&&detailReport.point!=null?Text("${(detailReport.point!*100).toStringAsFixed(0)}%",style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                            ),):Text('Hesaplanıyor'),
+                                            if( loading&&detailReport.point!=null)Text('Yaşanabilir')
+                                          ],
+                                        ),
+                                        progressColor: Colors.green,
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                    ],
                                   ),
+                                  SizedBox(height: 20,),
                                   Column(
                                     children: [
-                                      SizedBox(height: 20,),
-                                      linearBarWidgets('Bina yaşı',desc: '',percent: listMeanMethod(detailReport.buildingAge)/40,total: '${(listMeanMethod(detailReport.buildingAge)).toStringAsFixed(1)}/40',icon: Icons.home),
-                                      linearBarWidgets('Su Kalitesi',desc: '',percent: listMeanMethod(detailReport.waterQuality)/5,total: '${listMeanMethod(detailReport.waterQuality).toStringAsFixed(1)}/5',icon: Icons.water),
-                                      linearBarWidgets('Kira Ücreti',desc: '',percent: listMeanMethod(detailReport.rentMoney)/10000,total: '${listMeanMethod(detailReport.rentMoney).toStringAsFixed(1)}/10000',icon: Icons.money),
-                                      linearBarWidgets('Tesisat Kalitesi',desc: '',percent: listMeanMethod(detailReport.plumbingQuality)/5,total: '${listMeanMethod(detailReport.plumbingQuality).toStringAsFixed(1)}/5',icon: Icons.wrap_text),
-                                      linearBarWidgets('internet Kalitesi',desc: '',percent: listMeanMethod(detailReport.internetQuality)/5,total: '${ listMeanMethod(detailReport.internetQuality).toStringAsFixed(1)}/5',icon: Icons.network_check),
-                                      linearBarWidgets('Elektirik Kalitesi',desc: '',percent: listMeanMethod(detailReport.electricityQuality)/5,total: '${listMeanMethod(detailReport.electricityQuality).toStringAsFixed(1)}/5',icon: Icons.whatshot),
-                                      linearBarWidgets('Dayanıklılık',desc: '',percent: listMeanMethod(detailReport.durability)/5,total: '${listMeanMethod(detailReport.durability).toStringAsFixed(1)}/5',icon: Icons.spellcheck),
+                                    if(place.result!.types!.isNotEmpty && place.result!.types!.contains('street_address'))Column(
+                                      children: [
+                                        SizedBox(height: 20,),
+                                        linearBarWidgets('Bina yaşı',desc: '',percent: listMeanMethod(detailReport.buildingAge)/40,total: '${(listMeanMethod(detailReport.buildingAge)).toStringAsFixed(1)}/40',icon: Icons.home),
+                                        linearBarWidgets('Su Kalitesi',desc: '',percent: listMeanMethod(detailReport.waterQuality)/5,total: '${listMeanMethod(detailReport.waterQuality).toStringAsFixed(1)}/5',icon: Icons.water),
+                                        linearBarWidgets('Kira Ücreti',desc: '',percent: listMeanMethod(detailReport.rentMoney)/10000,total: '${listMeanMethod(detailReport.rentMoney).toStringAsFixed(1)}/10000',icon: Icons.money),
+                                        linearBarWidgets('Tesisat Kalitesi',desc: '',percent: listMeanMethod(detailReport.plumbingQuality)/5,total: '${listMeanMethod(detailReport.plumbingQuality).toStringAsFixed(1)}/5',icon: Icons.wrap_text),
+                                        linearBarWidgets('internet Kalitesi',desc: '',percent: listMeanMethod(detailReport.internetQuality)/5,total: '${ listMeanMethod(detailReport.internetQuality).toStringAsFixed(1)}/5',icon: Icons.network_check),
+                                        linearBarWidgets('Elektirik Kalitesi',desc: '',percent: listMeanMethod(detailReport.electricityQuality)/5,total: '${listMeanMethod(detailReport.electricityQuality).toStringAsFixed(1)}/5',icon: Icons.whatshot),
+                                        linearBarWidgets('Dayanıklılık',desc: '',percent: listMeanMethod(detailReport.durability)/5,total: '${listMeanMethod(detailReport.durability).toStringAsFixed(1)}/5',icon: Icons.spellcheck),
+                                      ],
+                                    ),
 
                                       for(var nearPlace in detailReport.placeNearBy!.keys)
                                       ExpandablePanel(

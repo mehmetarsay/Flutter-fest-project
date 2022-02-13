@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -201,6 +202,7 @@ class HomeViewModel extends CustomBaseViewModel {
     if(detailReport.point!>1) detailReport.point = 1;
     loading = true;
     notifyListeners();
+    Fluttertoast.showToast(msg: 'Hesaplandı');
   }
 
   totalPointCalculateUserData()async {
