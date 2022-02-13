@@ -29,18 +29,23 @@ class HomeView extends StatelessWidget {
                       key: viewModel.key,
                       onIsContractedCallback: () {},
                       onIsExtendedCallback: () => print('extended'),
-                      persistentContentHeight: viewModel.selectPlace == null ? 0 : 100,
+                      persistentContentHeight:
+                          viewModel.selectPlace == null ? 0 : 100,
                       background: mapAndSearchWidget(viewModel),
                       persistentHeader: viewModel.selectPlace != null
                           ? Container(
                               decoration: const BoxDecoration(
-                                  color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15))),
                               constraints: BoxConstraints.expand(height: 40),
                               child: Center(
                                 child: Container(
                                   height: 8.0,
                                   width: 50.0,
-                                  color: Color.fromARGB((0.25 * 255).round(), 0, 0, 0),
+                                  color: Color.fromARGB(
+                                      (0.25 * 255).round(), 0, 0, 0),
                                 ),
                               ),
                             )
@@ -48,7 +53,7 @@ class HomeView extends StatelessWidget {
                       expandableContent: viewModel.selectPlace != null
                           ? HomeBottomSheet(
                               place: viewModel.selectPlace!,
-                        detailReport: viewModel.detailReport,
+                              detailReport: viewModel.detailReport,
                             )
                           : Container())
                   : const Center(
@@ -64,7 +69,9 @@ class HomeView extends StatelessWidget {
           circleId: CircleId('circle'),
           fillColor: Colors.blueAccent.withOpacity(0.2),
           strokeColor: Colors.blueAccent.withOpacity(0.4),
-          center: LatLng(viewModel.selectPlace!.result!.geometry!.location!.lat!, viewModel.selectPlace!.result!.geometry!.location!.lng!),
+          center: LatLng(
+              viewModel.selectPlace!.result!.geometry!.location!.lat!,
+              viewModel.selectPlace!.result!.geometry!.location!.lng!),
           radius: viewModel.radius * 1000,
         )
     ]);
@@ -85,9 +92,9 @@ class HomeView extends StatelessWidget {
           top: 110,
           child: FloatingActionButton(
               child: Icon(Icons.arrow_forward),
-              onPressed: (){
-            viewModel.context.navigateTo(DataAddView());
-          }),
+              onPressed: () {
+                viewModel.context.navigateTo(DataAddView());
+              }),
         ),
         if (viewModel.selectPlace != null) sliderCalculateWidget(viewModel),
         Positioned(
@@ -128,7 +135,10 @@ class HomeView extends StatelessWidget {
                           height: 50,
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(left: 10),
-                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
                           child: Text('${viewModel.places[index].description}'),
                         ),
                       ),
@@ -164,7 +174,12 @@ class HomeView extends StatelessWidget {
                   viewModel.radius = newValue;
                   double zoom = newValue > 0.3 ? 15 : 17;
                   CameraUpdate cameraUpdate = CameraUpdate.newLatLngZoom(
-                      LatLng(viewModel.selectPlace!.result!.geometry!.location!.lat!, viewModel.selectPlace!.result!.geometry!.location!.lng!), zoom);
+                      LatLng(
+                          viewModel
+                              .selectPlace!.result!.geometry!.location!.lat!,
+                          viewModel
+                              .selectPlace!.result!.geometry!.location!.lng!),
+                      zoom);
                   viewModel.controller.animateCamera(cameraUpdate);
                 },
               ),
@@ -172,17 +187,20 @@ class HomeView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (viewModel.selectPlace!.result!.types!.isNotEmpty && viewModel.selectPlace!.result!.types!.contains('street_address')) {
+              if (viewModel.selectPlace!.result!.types!.isNotEmpty &&
+                  viewModel.selectPlace!.result!.types!
+                      .contains('street_address')) {
                 viewModel.pointCalculate();
-              }
-              else{
+              } else {
                 Fluttertoast.showToast(msg: 'Cadde için hesaplama yapamıyorum');
               }
             },
             child: Container(
               width: 100,
               height: 35,
-              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30)), color: Colors.blueAccent),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  color: Colors.blueAccent),
               child: Center(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -196,7 +214,8 @@ class HomeView extends StatelessWidget {
                   ),
                   Text(
                     'Hesapla',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w600),
                   ),
                 ],
               )),

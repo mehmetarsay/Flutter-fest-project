@@ -1,0 +1,3 @@
+enum NearByType {
+  school
+}

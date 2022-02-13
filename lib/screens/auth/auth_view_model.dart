@@ -19,6 +19,16 @@ class AuthViewModel extends CustomBaseViewModel {
 
   final formKeyLogin = GlobalKey<FormState>();
   final formKeySignup = GlobalKey<FormState>();
+  bool _isLoading = false;
+
+  @override
+  bool get isLoading => _isLoading;
+
+  @override
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   gotoLogin() {
     //controller_0To1.forward(from: 0.0);
@@ -40,6 +50,7 @@ class AuthViewModel extends CustomBaseViewModel {
 
   loginMethod(BuildContext context)async{
     if (formKeyLogin.currentState!.validate()) {
+      isLoading = true;
       var authUser = await AuthService.instance!.login(emailController.text, passwordController.text);
       if (authUser != null) {
         authUser as User;
@@ -49,6 +60,7 @@ class AuthViewModel extends CustomBaseViewModel {
       }
 
     } else {}
+    isLoading = false;
   }
   signupMethod(BuildContext context)async{
     if (formKeySignup.currentState!.validate()) {

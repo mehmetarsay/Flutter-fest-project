@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zam/core/extension/context_extension.dart';
 import 'package:zam/screens/auth/auth_view_model.dart';
+import 'package:zam/widgets/custom_app_bar.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key,required this.viewModel}) : super(key: key);
@@ -7,10 +9,12 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Material(
-        child:   Container(
-          height: MediaQuery.of(context).size.height,
+    return Scaffold(
+      appBar: const CustomAppBar(backgroundColor: Colors.transparent),
+      extendBodyBehindAppBar: true,
+      body: SingleChildScrollView(
+        child: Container(
+          height: context.dynamicHeight(1),
           decoration: BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
@@ -20,12 +24,13 @@ class SignUpPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child:   Form(
+          child:Form(
             key: viewModel.formKeySignup,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(100.0),
+                  // padding: EdgeInsets.all(100.0),
                   child: Center(
                     child: Icon(
                       Icons.add,

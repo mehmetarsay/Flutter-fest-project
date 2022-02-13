@@ -9,7 +9,7 @@ part of 'place_data.dart';
 PlaceData _$PlaceDataFromJson(Map<String, dynamic> json) => PlaceData(
       location: json['location'] == null
           ? null
-          : MyLocation.fromJson(json['location'] as Map<String, dynamic>),
+          : Location.fromJson(json['location'] as Map<String, dynamic>),
       title: json['title'] as String?,
       placeId: json['placeId'] as String?,
       type: json['type'] as String?,

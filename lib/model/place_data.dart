@@ -1,18 +1,19 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:zam/core/base/base_model.dart';
-import 'package:zam/model/place.dart';
 import 'package:zam/model/place_user_data.dart';
+
+import 'place/location.dart';
 
 part 'place_data.g.dart';
 
-locationToJson(MyLocation? location){
+locationToJson(Location? location){
   return location!.toJson();
 }
 
 @JsonSerializable()
 class PlaceData extends BaseModel{
   @JsonKey(toJson: locationToJson)
-  MyLocation? location;
+  Location? location;
   String? title;
   String? type;
   String? placeId;
@@ -29,16 +30,10 @@ class PlaceData extends BaseModel{
   });
 
   @override
-  fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    return _$PlaceDataFromJson(json);
-  }
+  fromJson(Map<String, dynamic> json) => _$PlaceDataFromJson(json);
+
 
   @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    return _$PlaceDataToJson(this);
-  }
-
+  Map<String, dynamic> toJson() => _$PlaceDataToJson(this);
 
 }

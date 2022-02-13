@@ -1,3 +1,3 @@
 enum Network {
-TEST
+  nearBySearch
 }

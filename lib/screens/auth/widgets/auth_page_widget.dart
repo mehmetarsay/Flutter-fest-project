@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:zam/core/extension/context_extension.dart';
 import 'package:zam/screens/auth/auth_view_model.dart';
 
+import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/custom_text.dart';
 
 class AuthPage extends StatelessWidget {
@@ -12,6 +13,9 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(backgroundColor: Colors.transparent),
+      // extendBody: true,
+      extendBodyBehindAppBar: true,
       body: body(context),
     );
   }
