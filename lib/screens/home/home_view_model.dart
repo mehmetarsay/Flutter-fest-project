@@ -22,7 +22,15 @@ class HomeViewModel extends CustomBaseViewModel {
 
   late GoogleMapController _controller;
 
-  double _radius = 0.1;
+  double _radius  = 0.1;
+  bool _popUpVisible = false;
+
+  bool get popUpVisible => _popUpVisible;
+
+  set popUpVisible(bool value) {
+    _popUpVisible = value;
+    notifyListeners();
+  }
 
   double get radius => _radius;
 
@@ -83,9 +91,9 @@ class HomeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
-  init(BuildContext context) {
+  init(BuildContext context){
     setInitialised(false);
-    this.context = context;
+    this.context =context;
     setInitialised(true);
     notifyListeners();
   }
@@ -101,8 +109,9 @@ class HomeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
+
   /// search method
-  onTap(int index) async {
+  onTap(int index) async{
     searchController.clear();
     var res = await PlaceApiServices(const Uuid().v4()).getPlaceDetailFromId(places.elementAt(index).placeId);
     selectPlace = res;
@@ -143,7 +152,7 @@ class HomeViewModel extends CustomBaseViewModel {
         waterQuality: []
     );
     double lat = selectPlace!.result!.geometry!.location!.lat!;
-    double lng = selectPlace!.result!.geometry!.location!.lng!;
+    double lng =  selectPlace!.result!.geometry!.location!.lng!;
    List<PlaceUserData> placeDatalist = await FirestoreServiceApp.instance!.firestore.collection('place').doc(selectPlace!.result!.placeId!).collection('users').get().then((value) {
       List<PlaceUserData> list = [];
       for (var place in value.docs) {

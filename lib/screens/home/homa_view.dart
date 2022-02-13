@@ -9,7 +9,11 @@ import 'package:zam/screens/data_add/data_add_view.dart';
 import 'package:zam/screens/home/home_view_model.dart';
 import 'package:zam/screens/home/subviews/expandable/expandable_view.dart';
 import 'package:zam/screens/map/map_style.dart';
+import 'package:zam/screens/profile/profile_view.dart';
 import 'package:zam/widgets/custom_text_form_field.dart';
+
+import '../../widgets/custom_text.dart';
+import '../my_collection/my_collection_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,43 +27,105 @@ class HomeView extends StatelessWidget {
           return Scaffold(
               extendBody: true,
               resizeToAvoidBottomInset: false,
-              body: viewModel.initialised
-                  ? ExpandableBottomSheet(
-                      key: viewModel.key,
-                      onIsContractedCallback: () {},
-                      onIsExtendedCallback: () => print('extended'),
-                      persistentContentHeight:
-                          viewModel.selectPlace == null ? 0 : 100,
-                      background: mapAndSearchWidget(viewModel),
-                      persistentHeader: viewModel.selectPlace != null
-                          ? Container(
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15))),
-                              constraints: BoxConstraints.expand(height: 40),
-                              child: Center(
-                                child: Container(
-                                  height: 8.0,
-                                  width: 50.0,
-                                  color: Color.fromARGB(
-                                      (0.25 * 255).round(), 0, 0, 0),
-                                ),
-                              ),
-                            )
-                          : Container(),
-                      expandableContent: viewModel.selectPlace != null
-                          ? HomeBottomSheet(
-                              place: viewModel.selectPlace!,
-                              detailReport: viewModel.detailReport,
-                        loading: viewModel.loading,
-                            )
-                          : Container())
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ));
+              body: Stack(
+                children: [
+                  viewModel.initialised
+                      ? ExpandableBottomSheet(
+                          key: viewModel.key,
+                          onIsContractedCallback: () {},
+                          onIsExtendedCallback: () => print('extended'),
+                          persistentContentHeight:
+                              viewModel.selectPlace == null ? 0 : 100,
+                          background: mapAndSearchWidget(viewModel),
+                          persistentHeader: viewModel.selectPlace != null
+                              ? Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15),
+                                          topRight: Radius.circular(15))),
+                                  constraints:
+                                      BoxConstraints.expand(height: 40),
+                                  child: Center(
+                                    child: Container(
+                                      height: 8.0,
+                                      width: 50.0,
+                                      color: Color.fromARGB(
+                                          (0.25 * 255).round(), 0, 0, 0),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          expandableContent: viewModel.selectPlace != null
+                              ? HomeBottomSheet(
+                                  place: viewModel.selectPlace!,
+                                  detailReport: viewModel.detailReport,
+                            loading: viewModel.loading,
+                                )
+                              : Container())
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                  if (viewModel.popUpVisible)
+                    Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.popUpVisible = false;
+                          },
+                          child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              color: context.themeData.colorScheme.onPrimary
+                                  .withOpacity(0.3)),
+                        ),
+                        Positioned(
+                            right: 10,
+                            top: 130,
+                            child: otherButtonContainer(context, viewModel))
+                      ],
+                    )
+                ],
+              ));
         });
+  }
+
+  Container otherButtonContainer(
+      BuildContext context, HomeViewModel viewModel) {
+    return Container(
+      color: Colors.transparent,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(onPressed: () {
+            viewModel.popUpVisible = false;
+            context.navigateTo(DataAddView());
+          }, child: Icon(Icons.add)),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: FloatingActionButton(
+              onPressed: () {
+                viewModel.popUpVisible = false;
+                context.navigateTo(ProfileView());
+              },
+              child: Icon(Icons.person),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: FloatingActionButton(
+              onPressed: () {
+                viewModel.popUpVisible = false;
+                context.navigateTo(MyCollectionView());
+              },
+              child: Icon(Icons.library_books),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Stack mapAndSearchWidget(HomeViewModel viewModel) {
@@ -87,18 +153,20 @@ class HomeView extends StatelessWidget {
           },
           circles: circles,
         ),
-        Positioned(
-          right: 10,
-          top: 110,
-          child: FloatingActionButton(
-              child: Icon(Icons.arrow_forward),
-              onPressed: () {
-                viewModel.context.navigateTo(DataAddView());
-              }),
-        ),
+        if (!viewModel.popUpVisible)
+          Positioned(
+            right: 10,
+            top: 130,
+            child: FloatingActionButton(
+                child: Icon(Icons.more_vert),
+                onPressed: () {
+                  viewModel.popUpVisible = true;
+                  // viewModel.context.navigateTo(DataAddView());
+                }),
+          ),
         if (viewModel.selectPlace != null) sliderCalculateWidget(viewModel),
         Positioned(
-          top: 20,
+          top: 35,
           left: 0,
           right: 0,
           child: Column(
@@ -225,4 +293,5 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+
 }
