@@ -106,7 +106,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ),
 
                 hintStyle: TextStyle(
-                    color: Colors.black),
+                    color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white),
             keyboardType: widget.textInputType ?? TextInputType.text,

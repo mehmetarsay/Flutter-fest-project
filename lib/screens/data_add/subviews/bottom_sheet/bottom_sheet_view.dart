@@ -133,7 +133,7 @@ class DataAddBottomSheet extends StatelessWidget {
                     right: 10,
                     child: FloatingActionButton.extended(
                       onPressed: () {
-                        viewModel.sendButton(place);
+                        viewModel.sendButton(place,context);
                       },
                       icon: Icon(Icons.check),
                       backgroundColor: Color(0xff2680ea),

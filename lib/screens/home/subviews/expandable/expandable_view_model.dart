@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:zam/core/base/base_view_model.dart';
@@ -11,5 +12,5 @@ import 'package:zam/services/auth_services.dart';
 import 'package:zam/services/firestore_services.dart';
 
 class HomeBottomSheetViewModel extends CustomBaseViewModel {
-
+ExpandableController expandableController = ExpandableController(initialExpanded: true);
 }

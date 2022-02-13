@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:zam/core/base/base_view_model.dart';
 import 'package:zam/core/extension/context_extension.dart';
@@ -31,7 +32,7 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
 
   PlaceData? placeData;
 
-  sendButton(Place place) async {
+  sendButton(Place place,BuildContext context) async {
     placeData = await FirestoreServiceApp.instance!.getPlace(place.result!.placeId!);
     if (placeData == null) {
       placeData =PlaceData(
@@ -52,6 +53,16 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
     if(placeData!.type=='street'){
       if(streetUserData.buildQuality!=null||streetUserData.smell!=null||streetUserData.carPark!=null||streetUserData.electricityQuality!=null||streetUserData.internetQuality!=null||streetUserData.waterQuality!=null){
         FirestoreServiceApp.instance!.addPlaceUser(streetUserData, placeData!);
+        Fluttertoast.showToast(msg: 'Gönderildi');
+        streetUserData = StreetUserData(
+            carPark: null,
+            smell: null,
+            electricityQuality: null,
+            internetQuality: null,
+            buildQuality: null,
+            waterQuality: null
+        );
+        Navigator.pop(context);
       }
       else{
         Fluttertoast.showToast(msg: 'Hepsi Boş olamaz');
@@ -60,27 +71,20 @@ class DataAddBottomSheetViewModel extends CustomBaseViewModel {
     }else{
       if(placeUserData.waterQuality!=null||placeUserData.internetQuality!=null||placeUserData.electricityQuality!=null||placeUserData.durability!=null||placeUserData.plumbingQuality!=null||placeUserData.rentMoney!=null||placeUserData.buildingAge!=null){
         FirestoreServiceApp.instance!.addPlaceUser(placeUserData, placeData!);
+        Fluttertoast.showToast(msg: 'Gönderildi');
+        placeUserData = PlaceUserData(
+            buildingAge: null,
+            durability: null,
+            electricityQuality: null,
+            internetQuality: null,plumbingQuality: null,rentMoney: null,waterQuality: null
+        );
+        context.pop();
       }
       else{
         Fluttertoast.showToast(msg: 'Hepsi Boş olamaz');
       }
 
     }
-    placeUserData = PlaceUserData(
-      buildingAge: null,
-      durability: null,
-      electricityQuality: null,
-      internetQuality: null,plumbingQuality: null,rentMoney: null,waterQuality: null
-    );
-    streetUserData = StreetUserData(
-      carPark: null,
-      smell: null,
-      electricityQuality: null,
-      internetQuality: null,
-      buildQuality: null,
-      waterQuality: null
-    );
-    Fluttertoast.showToast(msg: 'Gönderildi');
     notifyListeners();
 
 

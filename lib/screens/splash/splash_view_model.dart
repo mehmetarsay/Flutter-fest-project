@@ -4,6 +4,7 @@ import 'package:zam/core/base/base_view_model.dart';
 import 'package:zam/core/extension/context_extension.dart';
 import 'package:zam/screens/auth/auth_view.dart';
 import 'package:zam/screens/data_add/data_add_view.dart';
+import 'package:zam/screens/home/homa_view.dart';
 import 'package:zam/screens/login/login_view.dart';
 
 class SplashViewModel extends CustomBaseViewModel {
@@ -11,7 +12,7 @@ class SplashViewModel extends CustomBaseViewModel {
     this.context = context;
     await Future.delayed(const Duration(seconds: 1));
     if(FirebaseAuth.instance.currentUser!=null){
-      context.navigateToReplacement( DataAddView());
+      context.navigateToReplacement( HomeView());
     }
     else
     context.navigateToReplacement( AuthView());

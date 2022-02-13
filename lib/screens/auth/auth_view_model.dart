@@ -5,6 +5,7 @@ import 'package:zam/core/base/base_view_model.dart';
 import 'package:zam/core/extension/context_extension.dart';
 import 'package:zam/model/user.dart';
 import 'package:zam/screens/data_add/data_add_view.dart';
+import 'package:zam/screens/home/homa_view.dart';
 import 'package:zam/services/auth_services.dart';
 import 'package:zam/services/firestore_services.dart';
 
@@ -44,7 +45,7 @@ class AuthViewModel extends CustomBaseViewModel {
         authUser as User;
         var myUser = await FirestoreServiceApp.instance!.loginUser(authUser.uid);
         Fluttertoast.showToast(msg: 'Giriş Başarılı');
-        context.navigateToReplacement( DataAddView());
+        context.navigateToReplacement( HomeView());
       }
 
     } else {}
@@ -63,7 +64,7 @@ class AuthViewModel extends CustomBaseViewModel {
             email: emailController.text);
         var registerFirestore =
             await FirestoreServiceApp.instance!.registerUser(myUser);
-        context.navigateToReplacement( DataAddView());
+        context.navigateToReplacement( HomeView());
 
       }
     } else {
