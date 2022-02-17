@@ -1,16 +1,36 @@
-# zam
+# Yasanabilir mi?
+## Uygulama Ekran Görüntüleri
 
-Evlerin Zamlanma Zamanı
+On Board            |  Home
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/auth.jpeg "On Board") | ![alt text](/screenshot/home.jpeg "Home")
 
-## Getting Started
+Kayıt Ol             |  Giriş Yap
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/kayit.jpeg "Kayıt Ol") | ![alt text](/screenshot/giris.jpeg "Giriş Yap")
 
-This project is a starting point for a Flutter application.
+Arama                      | Arama
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/home_search.jpeg "Arama ") | ![alt text](/screenshot/home_search1.jpeg "Arama")
 
-A few resources to get you started if this is your first Flutter project:
+Home Search End                  |  Home Search End  
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/home_search_end.jpeg "Arama Sonucu") | ![alt text](/screenshot/home_search_end1.jpeg "Arama Sonucu")
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Arama Sonucu               |  Arama Sonucu   
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/home_search_end2.jpeg "Arama Sonucu") | ![alt text](/screenshot/home_search_end3.jpeg "Arama Sonucu")
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Arama Sonucu                |  Degerlendirmelerim 
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/home_search_end4.jpeg "Arama Sonucu") | ![alt text](/screenshot/degerlendirmelerim.jpeg "Degerlendirmelerim ")
+
+Degerlendirme Ekle          |  Degerlendirme Ekle
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/degerlendirme_ekle.jpeg "Degerlendirme Ekle") | ![alt text](/screenshot/degerlendirme_ekle1.jpeg "Degerlendirme Ekle")
+
+Degerlendirme Ekle          |  Degerlendirme Ekle
+:-------------------------:|:-------------------------:
+![alt text](/screenshot/degerlendirme_ekle2.jpeg "Degerlendirme Ekle") | ![alt text](/screenshot/degerlendirme_ekle3.jpeg "Degerlendirme Ekle")
+
+
