@@ -5,6 +5,7 @@ Flutter ile geliştirdiğimiz uygulamada Google Maps, Google Place apilerinin ya
 
 Uygulamanın amacı Belirlenen bir noktadaki yaşam kalitesini belirleyen çevresel faktörleri ve kullanıcı değerlendirmelerini bir algoritma ile birleştirerk yasanma yüzdesini ortaya çıkarmaktır. Bu çıkarımı aşağıdaki algoritmaya göre yapmaktadır.
 
+<img width="690" alt="image" src="https://user-images.githubusercontent.com/52586509/155135643-771c981a-54be-4841-a87d-85a12d4bffd1.png">
 
 
 
